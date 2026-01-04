@@ -1,40 +1,59 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Colors } from "../../constants/colors";
-import { Ionicons } from "@expo/vector-icons";
 
-export default function TabsLayout() {
+export default function TabLayout() {
   return (
     <Tabs
-      screenOptions={({ route }) => ({
-        headerShown: false,
+      screenOptions={{
+        headerShown: false, // 🔥 THIS FIXES HEADER DUPLICATION
         tabBarStyle: {
           backgroundColor: Colors.background,
-          borderTopWidth: 0,
-          elevation: 0,
-          height: 64,
+          borderTopColor: Colors.card,
         },
         tabBarActiveTintColor: Colors.gold,
         tabBarInactiveTintColor: Colors.muted,
-        tabBarLabelStyle: {
-          fontSize: 11,
-          marginBottom: 6,
-        },
-        tabBarIcon: ({ color }) => {
-          let icon: any = "home";
-
-          if (route.name === "index") icon = "home";
-          if (route.name === "dua") icon = "play-circle";
-          if (route.name === "bookmarks") icon = "bookmark";
-          if (route.name === "settings") icon = "settings";
-
-          return <Ionicons name={icon} size={22} color={color} />;
-        },
-      })}
+      }}
     >
-      <Tabs.Screen name="index" options={{ title: "Home" }} />
-      <Tabs.Screen name="dua" options={{ title: "Dua" }} />
-      <Tabs.Screen name="bookmarks" options={{ title: "Saved" }} />
-      <Tabs.Screen name="settings" options={{ title: "Settings" }} />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="dua"
+        options={{
+          title: "Dua",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="play-circle" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="bookmarks"
+        options={{
+          title: "Saved",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="bookmark" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
